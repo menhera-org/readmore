@@ -39,6 +39,7 @@
                 width: 100%;
                 flex-grow: 1;
                 padding: 1em;
+                resize: none;
             }
         </style>
         <link rel="icon" href="menhera.png">
@@ -93,6 +94,12 @@
                     location.href = 'https://twitter.com/intent/tweet?hashtags=ReadMore&url='
                         + encodeURIComponent(location.href);
                 }, 100);
+            });
+
+            url.addEventListener('click', ev => {
+                url.focus();
+                url.select();
+                document.execCommand('copy');
             });
         </script>
     </body>
