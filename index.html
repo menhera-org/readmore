@@ -25,6 +25,13 @@
                 width: 100%;
                 padding: 1em;
             }
+            #tweet {
+                display: block;
+                box-sizing: border-box;
+                margin: 0;
+                width: 100%;
+                padding: 1em;
+            }
             #text {
                 display: block;
                 box-sizing: border-box;
@@ -44,10 +51,12 @@
     </head>
     <body>
         <input id="url" type="url" readonly>
+        <button id="tweet">Tweet</button>
         <textarea id="text" autocomplete="off"></textarea>
         <script>
             const text = document.getElementById('text');
             const url = document.getElementById('url');
+            const tweet = document.getElementById('tweet');
 
             url.value = location.href;
 
@@ -77,6 +86,13 @@
                     location.hash = '#' + base64;
                     url.value = location.href;
                 });
+            });
+
+            tweet.addEventListener('click', ev => {
+                setTimeout(() => {
+                    location.href = 'https://twitter.com/intent/tweet?hashtags=ReadMore&url='
+                        + encodeURIComponent(location.href);
+                }, 100);
             });
         </script>
     </body>
