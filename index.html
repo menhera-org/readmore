@@ -4,17 +4,26 @@
         <meta charset="utf-8">
         <title>Readmore by Menhera.org</title>
         <style>
+            :root {
+                display: flex;
+                min-height: 100%;
+            }
             body {
                 margin: 0;
                 font-family: system-ui, sans-serif;
+                flex-grow: 1;
                 display: flex;
                 flex-direction: column;
+            }
+            input, textarea, button, select {
+                font: inherit;
             }
             #url {
                 display: block;
                 box-sizing: border-box;
                 margin: 0;
                 width: 100%;
+                padding: 1em;
             }
             #text {
                 display: block;
@@ -22,6 +31,7 @@
                 margin: 0;
                 width: 100%;
                 flex-grow: 1;
+                padding: 1em;
             }
         </style>
         <link rel="icon" href="menhera.png">
