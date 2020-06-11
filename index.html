@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Readmore by Menhera.org</title>
+        <style>
+            body {
+                margin: 0;
+                font-family: system-ui, sans-serif;
+                display: flex;
+                flex-direction: column;
+            }
+            #url {
+                display: block;
+                box-sizing: border-box;
+                margin: 0;
+                width: 100%;
+            }
+            #text {
+                display: block;
+                box-sizing: border-box;
+                margin: 0;
+                width: 100%;
+                flex-grow: 1;
+            }
+        </style>
+        <link rel="icon" href="menhera.png">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:site" content="@_uts2">
+        <meta property="og:url" content="https://menhera-org.github.io/readmore/" />
+        <meta property="og:title" content="Readmore by Menhera.org">
+        <meta property="og:description" content="Read more at more.menhera.org">
+        <meta property="og:image" content="https://menhera-org.github.io/readmore/menhera.png" />
+    </head>
+    <body>
+        <input id="url" type="url" readonly>
+        <textarea id="text" autocomplete="off"></textarea>
+        <script>
+            const text = document.getElementById('text');
+            const url = document.getElementById('url');
+
+            url.value = location.href;
+
+            // Source: https://qiita.com/i15fujimura1s/items/6fa5d16b1e53f04f3b06
+            function base64Encode(...parts) {
+                return new Promise(resolve => {
+                    const reader = new FileReader();
+                    reader.onload = () => {
+                        const offset = reader.result.indexOf(",") + 1;
+                        resolve(reader.result.slice(offset));
+                    };
+                    reader.readAsDataURL(new Blob(parts));
+                });
+            }
+
+            // Source: https://qiita.com/i15fujimura1s/items/6fa5d16b1e53f04f3b06
+            function base64Decode(text, charset) {
+                return fetch(`data:text/plain;charset=${charset};base64,` + text).then(response => response.text());
+            }
+
+            base64Decode(location.hash.substr(1)).then(str => {
+                text.value = str;
+            });
+
+            text.addEventListener('change', ev => {
+                base64Encode(text.value).then(base64 => {
+                    location.hash = '#' + base64;
+                    url.value = location.href;
+                });
+            });
+        </script>
+    </body>
+</html>
